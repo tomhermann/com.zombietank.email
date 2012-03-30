@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+repositories { mavenCentral() }
+
+configurations {
+	all*.exclude group: "commons-logging", module: "commons-logging"
+}
+
+sourceCompatibility = 1.6
+targetCompatibility = sourceCompatibility
+
+dependencies {
+	compile "org.springframework:spring-context-support:${springVersion}"
+	compile "org.slf4j:slf4j-api:${slf4jVersion}"
+	compile 'javax.mail:mail:1.4.4'
+
+	testCompile 'junit:junit:4.10'
+}
