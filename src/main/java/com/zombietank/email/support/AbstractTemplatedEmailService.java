@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.mail.javamail.JavaMailSender;
+
 import com.zombietank.email.Email;
 import com.zombietank.email.TemplatedEmailService;
-
 
 /***
  * Starter e-mail service for template engines that use maps.
  */
-public abstract class AbstractTemplatedEmailService implements TemplatedEmailService {
+public abstract class AbstractTemplatedEmailService extends SimpleEmailService implements TemplatedEmailService {
+
+	public AbstractTemplatedEmailService(JavaMailSender mailSender) {
+		super(mailSender);
+	}
 
 	public void send(Email email, String templateLocation) {
 		send(email, templateLocation, null);
