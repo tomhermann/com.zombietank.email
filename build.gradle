@@ -1,8 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
+apply from: 'https://raw.github.com/tomhermann/gradle-scripts/master/sources-javadoc.gradle'
 
-repositories { mavenCentral() }
+repositories { 
+	mavenCentral() 
+}
 
 configurations {
 	all*.exclude group: "commons-logging", module: "commons-logging"
@@ -17,4 +20,6 @@ dependencies {
 	compile 'javax.mail:mail:1.4.4'
 
 	testCompile 'junit:junit:4.10'
+	testCompile 'org.mockito:mockito-all:1.9.0'
+	testCompile 'org.apache.commons:commons-lang3:3.1'
 }
