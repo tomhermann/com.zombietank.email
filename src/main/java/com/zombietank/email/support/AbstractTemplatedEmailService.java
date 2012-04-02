@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import com.zombietank.email.Email;
 import com.zombietank.email.TemplatedEmailService;
+import com.zombietank.email.exception.EmailException;
 
 /***
  * Starter e-mail service for template engines that use maps.
@@ -18,11 +19,11 @@ public abstract class AbstractTemplatedEmailService extends SimpleEmailService i
 		super(mailSender);
 	}
 
-	public void send(Email email, String templateLocation) {
+	public void send(Email email, String templateLocation) throws EmailException {
 		send(email, templateLocation, null);
 	}
 
-	public <T extends Serializable> void send(Email email, String templateLocation, String modelKey, T modelValue) {
+	public <T extends Serializable> void send(Email email, String templateLocation, String modelKey, T modelValue) throws EmailException {
 		// Made mutable for engines like velocity, which explode when trying to modify an immutable map.
 		Map<String, T> model = new HashMap<String, T>(1);
 		model.put(modelKey, modelValue);

@@ -9,6 +9,15 @@ public enum Priority {
 		this.value = value;
 	}
 
+	public static Priority valueOf(int value) {
+		for (Priority priority : values()) {
+			if(value == priority.value) {
+				return priority;
+			}
+		}
+		throw new IllegalArgumentException("No such priority: " + value);
+	}
+	
 	public int getValue() {
 		return value;
 	}

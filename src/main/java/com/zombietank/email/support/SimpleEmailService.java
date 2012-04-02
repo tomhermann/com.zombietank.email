@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 
 import com.zombietank.email.Email;
 import com.zombietank.email.EmailService;
+import com.zombietank.email.exception.EmailException;
 
 public class SimpleEmailService implements EmailService {
 	private static final Logger log = LoggerFactory.getLogger(SimpleEmailService.class);
@@ -19,15 +20,15 @@ public class SimpleEmailService implements EmailService {
 	}
 	
 	@Async
-	public void send(Email email) {
+	public void send(Email email) throws EmailException {
 		log.info("Sending email to: {}", email.getTo());
 		log.debug("Sending: {}", email);
 	
 		try {
 			mailSender.send(preparable(email));
-			log.info("Sent email to: {}", email.getTo());
 		} catch(Exception e) {
-			log.error("Failed: email not sent to: {}", email.getTo(), e);
+			log.warn("Unable to send email.", e);
+			throw new EmailException("Unable to send email.", e);
 		}
 	}
 	
